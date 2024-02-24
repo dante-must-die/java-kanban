@@ -1,3 +1,5 @@
+package Moduls;
+
 import java.util.Objects;
 
 public class Task {
@@ -5,8 +7,7 @@ public class Task {
     private String title;
     private String description;
     private TaskStatus status;
-    public Task(int id, String title, String description, TaskStatus status) {
-        this.id = id;
+    public Task(String title, String description, TaskStatus status) {
         this.title = title;
         this.description = description;
         this.status = status;
@@ -59,7 +60,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "Moduls.Task{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +

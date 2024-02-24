@@ -1,8 +1,10 @@
+package Moduls;
+
 public class SubTask extends Task {
     private int epicId;
 
-    public SubTask(int id, String title, String description, TaskStatus status, int epicId) {
-        super(id, title, description, status);
+    public SubTask(String title, String description, TaskStatus status, int epicId) {
+        super(title, description, status);
         this.epicId = epicId;
     }
 
@@ -16,7 +18,7 @@ public class SubTask extends Task {
 
     @Override
     public String toString() {
-        return "SubTask{" +
+        return "Moduls.SubTask{" +
                 "epicId=" + epicId +  " " + getStatus() +
                 '}';
     }
