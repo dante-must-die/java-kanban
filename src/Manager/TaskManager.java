@@ -13,16 +13,19 @@ public class TaskManager {
     private HashMap<Integer, Epic> epics = new HashMap<>();
     private int currentId = 0;
 
-    public HashMap<Integer, SubTask> getSubTasks() {
-        return subTasks;
+    public ArrayList<Task> getSubTasks() {
+        ArrayList<Task> taskList = new ArrayList<>(tasks.values());
+        return taskList;
     }
 
-    public HashMap<Integer, Task> getTasks() {
-        return tasks;
+    public ArrayList<SubTask> getTasks() {
+        ArrayList<SubTask> subList = new ArrayList<>(subTasks.values());
+        return subList;
     }
 
-    public HashMap<Integer, Epic> getEpics() {
-        return epics;
+    public ArrayList<Epic> getEpics() {
+        ArrayList<Epic> epicList = new ArrayList<>(epics.values());
+        return epicList;
     }
 
     public void addTask(Task task) {
