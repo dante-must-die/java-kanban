@@ -15,7 +15,7 @@ public class Epic extends Task {
         return subTaskIds;
     }
     public ArrayList<Integer> getSubtasks() {
-        return subTaskIds; // Возвращаем копию списка, чтобы избежать изменений снаружи
+        return subTaskIds;
     }
     @Override
     public String toString() {

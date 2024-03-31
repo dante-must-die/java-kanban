@@ -1,16 +1,25 @@
-import Manager.TaskManager;
+import Manager.InMemoryTaskManager;
 import Moduls.Epic;
 import Moduls.SubTask;
 import Moduls.Task;
 import Moduls.TaskStatus;
 
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args) {
-        TaskManager manager = new TaskManager();
+        InMemoryTaskManager manager = new InMemoryTaskManager();
 
-        Task task1 = new Task("Moduls.Task 1", "Description 1", TaskStatus.NEW);
+        Epic epic = new Epic("Epic Title", "Epic Description");
+
+        int epicId = epic.getId();
+
+        SubTask subTask = new SubTask("Epic Title", "Epic Description", TaskStatus.NEW, epicId);
+
+        manager.addSubTask(subTask);
+
+        manager.printAllSubTasks();
+        manager.printAllEpics();
+
+        /*Task task1 = new Task("Moduls.Task 1", "Description 1", TaskStatus.NEW);
         Task task2 = new Task("Moduls.Task 2", "Description 2", TaskStatus.NEW);
         manager.addTask(task1);
         manager.addTask(task2);
@@ -51,6 +60,6 @@ public class Main {
         System.out.println("\nAfter deletion:");
         manager.printAllTasks();
         manager.printAllSubTasks();
-        manager.printAllEpics();
+        manager.printAllEpics();*/
     }
 }
