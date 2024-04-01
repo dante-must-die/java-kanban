@@ -159,8 +159,8 @@ public class InMemoryTaskManager implements TaskManager {
         if (epic != null) historyManager.add(epic);
         return epic;
     }
-    @Override
-    public void updateEpicStatus(int epicId) {
+
+    private void updateEpicStatus(int epicId) {
         Epic epic = epics.get(epicId);
         if (epic == null) return;
 
@@ -186,7 +186,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
-    public int generateId() {
+    private int generateId() {
         return ++currentId;
     }
 }
