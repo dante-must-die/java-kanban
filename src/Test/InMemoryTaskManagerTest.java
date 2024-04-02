@@ -12,10 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryTaskManagerTest {
     private InMemoryTaskManager taskManagers;
+
     @BeforeEach
     void setUp() {
         taskManagers = new InMemoryTaskManager();
     }
+
+    // InMemoryTaskManager действительно добавляет задачи разного типа и может найти их по id;
     @Test
     void shouldAddAndRetrieveTaskById() {
         Task task = new Task("Task", "Task description", TaskStatus.NEW);
@@ -44,6 +47,8 @@ class InMemoryTaskManagerTest {
         assertNotNull(retrievedEpic, "The epic should be retrieved by ID");
         assertTrue(retrievedEpic.equals(epic), "The retrieved epic should match the added epic");
     }
+
+    //задачи с заданным id и сгенерированным id не конфликтуют внутри менеджера;
     @Test
     void tasksWithManualAndGeneratedIdsDoNotConflict() {
         Task autoIdTask = new Task("Auto ID Task", "Task description", TaskStatus.NEW);
@@ -62,6 +67,8 @@ class InMemoryTaskManagerTest {
         assertNotNull(retrievedManualIdTask, "Task with manually set ID should exist.");
         assertNotEquals(retrievedAutoIdTask.getId(), retrievedManualIdTask.getId(), "Tasks should have unique IDs.");
     }
+
+    //тест, в котором проверяется неизменность задачи (по всем полям) при добавлении задачи в менеджер
     @Test
     void addedTaskShouldRemainUnchanged() {
         Task originalTask = new Task("Original Task", "Task Description", TaskStatus.NEW);

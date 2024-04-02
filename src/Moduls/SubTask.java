@@ -1,13 +1,13 @@
 package Moduls;
 
-public class SubTask extends Task {
+public class SubTask extends Task { // модульный класс наследует
     private int epicId;
 
     public SubTask(String title, String description, TaskStatus status, int epicId) {
         super(title, description, status);
         this.epicId = epicId;
     }
-
+    // методы работы с Id
     public int getEpicId() {
         return epicId;
     }
@@ -18,9 +18,7 @@ public class SubTask extends Task {
 
     @Override
     public String toString() {
-        return "Moduls.SubTask{" +
-                "epicId=" + epicId +  " " + getStatus() +
-                '}';
+        return "Moduls.SubTask{" + "epicId=" + epicId + " " + getStatus() + '}';
     }
 
 }

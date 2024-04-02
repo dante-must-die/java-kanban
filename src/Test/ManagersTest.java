@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ManagersTest {
-
+    //утилитарный класс всегда возвращает проинициализированные и готовые к работе экземпляры менеджеров;
     @Test
     public void getDefaultTaskManager_ShouldReturnInitializedInstance() {
         TaskManager taskManager = Managers.getDefault();
