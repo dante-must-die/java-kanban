@@ -1,6 +1,6 @@
-package Manager;
+package manager;
 
-import Moduls.Task;
+import moduls.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;

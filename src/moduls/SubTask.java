@@ -1,4 +1,4 @@
-package Moduls;
+package moduls;
 
 public class SubTask extends Task { // модульный класс наследует
     private int epicId;

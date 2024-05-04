@@ -1,10 +1,9 @@
-package Manager;
+package manager;
 
-import Moduls.Epic;
-import Moduls.SubTask;
-import Moduls.Task;
+import moduls.Epic;
+import moduls.SubTask;
+import moduls.Task;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {

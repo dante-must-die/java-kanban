@@ -1,8 +1,7 @@
-import Manager.InMemoryTaskManager;
-import Moduls.Epic;
-import Moduls.SubTask;
-import Moduls.Task;
-import Moduls.TaskStatus;
+import manager.InMemoryTaskManager;
+import moduls.Epic;
+import moduls.SubTask;
+import moduls.TaskStatus;
 
 public class Main {
     public static void main(String[] args) {

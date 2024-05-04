@@ -1,4 +1,4 @@
-package Moduls;
+package moduls;
 
 import java.util.ArrayList;
 import java.util.List;

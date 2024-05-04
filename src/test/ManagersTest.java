@@ -1,12 +1,9 @@
-package Test;
+package test;
 
-import Manager.Managers;
-import Manager.TaskManager;
-import Moduls.Epic;
-import Moduls.SubTask;
-import Moduls.Task;
-import Moduls.TaskStatus;
-import org.junit.jupiter.api.BeforeEach;
+import manager.Managers;
+import manager.TaskManager;
+import moduls.Task;
+import moduls.TaskStatus;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
