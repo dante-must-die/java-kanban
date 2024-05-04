@@ -34,7 +34,6 @@ public class Main {
         manager.addSubTask(subTask1);
         manager.addSubTask(subTask2);
         manager.addSubTask(subTask3);
-        
 
         manager.printAllTasks();
         manager.printAllSubTasks();
