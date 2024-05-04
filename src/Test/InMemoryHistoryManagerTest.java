@@ -30,25 +30,24 @@ class InMemoryHistoryManagerTest {
 
         historyManager.add(task1);
         historyManager.add(task2);
-        historyManager.add(task1);
+        historyManager.add(task1); // Повторное добавление Task 1
 
         List<Task> history = historyManager.getHistory();
         assertEquals(2, history.size(), "History should contain exactly two tasks.");
-        assertEquals(task2, history.get(0), "Task 2 should be the first in history after re-adding Task 1.");
-        assertEquals(task1, history.get(1), "Task 1 should be moved to the end of history after being re-added.");
+        assertSame(task2, history.get(0), "Task 2 should be the first in history after re-adding Task 1.");
+        assertSame(task1, history.get(1), "Task 1 should be moved to the end of history after being re-added.");
     }
 
     @Test
-    void historyDoesNotExceedLimit() {
-        // Добавляем 11 задач, чтобы проверить лимит истории
-        for (int i = 0; i < 11; i++) {
+    void historyGrowsIndefinitely() {
+        int numberOfTasks = 100;  // Тестируем добавление большого количества задач
+        for (int i = 0; i < numberOfTasks; i++) {
             Task task = new Task("Task " + i, "Description for Task " + i, TaskStatus.NEW);
             task.setId(i);
             historyManager.add(task);
         }
 
         List<Task> history = historyManager.getHistory();
-        assertEquals(10, history.size(), "History should not exceed 10 tasks.");
-        assertNull(history.stream().filter(t -> t.getId() == 0).findFirst().orElse(null), "The first added task (id=0) should be removed from history.");
+        assertEquals(numberOfTasks, history.size(), "History should grow indefinitely and contain all added tasks.");
     }
 }

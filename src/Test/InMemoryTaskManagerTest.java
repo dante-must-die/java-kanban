@@ -82,5 +82,43 @@ class InMemoryTaskManagerTest {
         assertEquals(originalTask.getDescription(), retrievedTask.getDescription(), "Description should match");
         assertEquals(originalTask.getStatus(), retrievedTask.getStatus(), "Status should match");
     }
+    //Тест на удаление подзадачи и проверка списка подзадач в эпике:
+    @Test
+    void deletingSubTaskRemovesItFromParentEpic() {
+        Epic epic = new Epic("Epic for Subtasks", "Epic Description");
+        taskManagers.addEpic(epic);
+        int epicId = epic.getId();
 
+        SubTask subTask1 = new SubTask("SubTask 1", "Description for SubTask 1", TaskStatus.NEW, epicId);
+        taskManagers.addSubTask(subTask1);
+        int subTaskId1 = subTask1.getId();
+
+        SubTask subTask2 = new SubTask("SubTask 2", "Description for SubTask 2", TaskStatus.NEW, epicId);
+        taskManagers.addSubTask(subTask2);
+        int subTaskId2 = subTask2.getId();
+
+        // Удаляем первую подзадачу
+        taskManagers.deleteSubTask(subTaskId1);
+
+        Epic updatedEpic = (Epic) taskManagers.getEpicById(epicId);
+        assertFalse(updatedEpic.getSubTaskIds().contains(subTaskId1), "Deleted subtask's ID should not be in the epic's subtask list.");
+        assertTrue(updatedEpic.getSubTaskIds().contains(subTaskId2), "Other subtask's ID should still be present.");
+    }
+    //Тест на удаление эпика и проверка удаления всех его подзадач
+    @Test
+    void deletingEpicAlsoDeletesItsSubTasks() {
+        Epic epic = new Epic("Complex Epic", "Contains several subtasks");
+        taskManagers.addEpic(epic);
+        int epicId = epic.getId();
+
+        SubTask subTask1 = new SubTask("SubTask 1 for Epic", "Details for subtask 1", TaskStatus.NEW, epicId);
+        taskManagers.addSubTask(subTask1);
+        SubTask subTask2 = new SubTask("SubTask 2 for Epic", "Details for subtask 2", TaskStatus.NEW, epicId);
+        taskManagers.addSubTask(subTask2);
+
+        taskManagers.deleteEpic(epicId);
+
+        assertNull(taskManagers.getSubTaskById(subTask1.getId()), "SubTask 1 should be deleted when the parent epic is deleted.");
+        assertNull(taskManagers.getSubTaskById(subTask2.getId()), "SubTask 2 should be deleted when the parent epic is deleted.");
+    }
 }
