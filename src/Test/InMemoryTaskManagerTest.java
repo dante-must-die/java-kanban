@@ -82,6 +82,7 @@ class InMemoryTaskManagerTest {
         assertEquals(originalTask.getDescription(), retrievedTask.getDescription(), "Description should match");
         assertEquals(originalTask.getStatus(), retrievedTask.getStatus(), "Status should match");
     }
+
     //Тест на удаление подзадачи и проверка списка подзадач в эпике:
     @Test
     void deletingSubTaskRemovesItFromParentEpic() {
@@ -104,6 +105,7 @@ class InMemoryTaskManagerTest {
         assertFalse(updatedEpic.getSubTaskIds().contains(subTaskId1), "Deleted subtask's ID should not be in the epic's subtask list.");
         assertTrue(updatedEpic.getSubTaskIds().contains(subTaskId2), "Other subtask's ID should still be present.");
     }
+
     //Тест на удаление эпика и проверка удаления всех его подзадач
     @Test
     void deletingEpicAlsoDeletesItsSubTasks() {
