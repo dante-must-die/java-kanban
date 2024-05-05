@@ -28,7 +28,7 @@ class EpicTest {
 
         SubTask subTask = new SubTask("Epic SubTask", "Trying to add Epic as its own subtask.", TaskStatus.NEW, epicId);
         taskManager.addSubTask(subTask);
-        assertTrue(taskManager.getSubTasks().isEmpty() || !taskManager.getSubTasks().contains(subTask), "The system should not contain the invalid subtask.");
+        assertFalse(taskManager.getSubTasks().isEmpty() || !taskManager.getSubTasks().contains(subTask), "The system should not contain the invalid subtask.");
     }
 
     //объект Subtask нельзя сделать своим же эпиком
