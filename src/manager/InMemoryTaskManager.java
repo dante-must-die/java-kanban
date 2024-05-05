@@ -1,9 +1,9 @@
-package Manager;
+package manager;
 
-import Moduls.Epic;
-import Moduls.SubTask;
-import Moduls.Task;
-import Moduls.TaskStatus;
+import moduls.Epic;
+import moduls.SubTask;
+import moduls.Task;
+import moduls.TaskStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +17,7 @@ public class InMemoryTaskManager implements TaskManager {
     private Map<Integer, Epic> epics = new HashMap<>();
     private int currentId = 0;
     private HistoryManager historyManager = Managers.getDefaultHistory();
+
     //реализация функций интерфейса TaskManager
     @Override
     public List<SubTask> getSubTasks() {

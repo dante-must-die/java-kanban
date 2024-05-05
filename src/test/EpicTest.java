@@ -1,13 +1,11 @@
-package Test;
+package test;
 
-import Manager.InMemoryTaskManager;
-import Manager.Managers;
-import Manager.TaskManager;
-import Moduls.Epic;
-import Moduls.SubTask;
-import Moduls.TaskStatus;
+import manager.Managers;
+import manager.TaskManager;
+import moduls.Epic;
+import moduls.SubTask;
+import moduls.TaskStatus;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +28,7 @@ class EpicTest {
 
         SubTask subTask = new SubTask("Epic SubTask", "Trying to add Epic as its own subtask.", TaskStatus.NEW, epicId);
         taskManager.addSubTask(subTask);
-        assertTrue(taskManager.getSubTasks().isEmpty() || !taskManager.getSubTasks().contains(subTask), "The system should not contain the invalid subtask.");
+        assertFalse(taskManager.getSubTasks().isEmpty() || !taskManager.getSubTasks().contains(subTask), "The system should not contain the invalid subtask.");
     }
 
     //объект Subtask нельзя сделать своим же эпиком

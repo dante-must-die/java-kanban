@@ -1,8 +1,7 @@
-import Manager.InMemoryTaskManager;
-import Moduls.Epic;
-import Moduls.SubTask;
-import Moduls.Task;
-import Moduls.TaskStatus;
+import manager.InMemoryTaskManager;
+import moduls.Epic;
+import moduls.SubTask;
+import moduls.TaskStatus;
 
 public class Main {
     public static void main(String[] args) {
@@ -35,7 +34,6 @@ public class Main {
         manager.addSubTask(subTask1);
         manager.addSubTask(subTask2);
         manager.addSubTask(subTask3);
-        
 
         manager.printAllTasks();
         manager.printAllSubTasks();
