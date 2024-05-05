@@ -36,6 +36,7 @@ class InMemoryHistoryManagerTest {
         assertSame(task1, history.get(1), "Task 1 should be moved to the end of history after being re-added.");
     }
 
+    //тест на проверку неограниченного размера
     @Test
     void historyGrowsIndefinitely() {
         int numberOfTasks = 100;  // Тестируем добавление большого количества задач
