@@ -1,5 +1,6 @@
 package test;
 
+import manager.ManagerSaveException;
 import manager.Managers;
 import manager.TaskManager;
 import moduls.Epic;
@@ -21,7 +22,7 @@ class EpicTest {
 
     //объект Epic нельзя добавить в самого себя в виде подзадачи;
     @Test
-    void epicCannotBeSubtaskOfItself() {
+    void epicCannotBeSubtaskOfItself() throws ManagerSaveException {
         Epic epic = new Epic("Epic Title", "Epic Description");
         taskManager.addEpic(epic);
         int epicId = epic.getId();
@@ -33,7 +34,7 @@ class EpicTest {
 
     //объект Subtask нельзя сделать своим же эпиком
     @Test
-    void subTaskCannotBeItsOwnEpic() {
+    void subTaskCannotBeItsOwnEpic() throws ManagerSaveException {
 
         Epic epic = new Epic("Epic for SubTask", "Description");
         taskManager.addEpic(epic);

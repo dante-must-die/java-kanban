@@ -5,7 +5,7 @@ import moduls.TaskStatus;
 
 public class Main {
     public static void main(String[] args) {
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+        /*InMemoryTaskManager manager = new InMemoryTaskManager();
 
         Epic epic = new Epic("Epic Title", "Epic Description");
 
@@ -16,7 +16,7 @@ public class Main {
         manager.addSubTask(subTask);
 
         manager.printAllSubTasks();
-        manager.printAllEpics();
+        manager.printAllEpics();*/
 
         /*Task task1 = new Task("Moduls.Task 1", "Description 1", TaskStatus.NEW);
         Task task2 = new Task("Moduls.Task 2", "Description 2", TaskStatus.NEW);
