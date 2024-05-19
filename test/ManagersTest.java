@@ -5,13 +5,14 @@ import manager.TaskManager;
 import moduls.Task;
 import moduls.TaskStatus;
 import org.junit.jupiter.api.Test;
+import manager.ManagerSaveException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ManagersTest {
     //утилитарный класс всегда возвращает проинициализированные и готовые к работе экземпляры менеджеров;
     @Test
-    public void getDefaultTaskManager_ShouldReturnInitializedInstance() {
+    public void getDefaultTaskManager_ShouldReturnInitializedInstance() throws ManagerSaveException {
         TaskManager taskManager = Managers.getDefault();
 
         Task task = new Task("Test Task", "Description", TaskStatus.NEW);
