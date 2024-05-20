@@ -1,4 +1,4 @@
-package Moduls;
+package moduls;
 
 import java.util.Objects;
 
@@ -13,38 +13,40 @@ public class Task { // основной модульный класс
         this.description = description;
         this.status = status;
     }
+
     //геттеры и сэттеры
     public int getId() {
         return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public TaskStatus getStatus() {
-        return status;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
+    public TaskStatus getStatus() {
+        return status;
+    }
+
     public void setStatus(TaskStatus status) {
         this.status = status;
     }
+
     //переопределие базовых методов для корректного использования
     @Override
     public boolean equals(Object o) {

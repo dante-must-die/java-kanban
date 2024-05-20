@@ -1,13 +1,13 @@
-package Manager;
+package manager;
 
-import Moduls.Epic;
-import Moduls.SubTask;
-import Moduls.Task;
+import moduls.Epic;
+import moduls.SubTask;
+import moduls.Task;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface TaskManager {
+
 
     List<SubTask> getSubTasks();
 
@@ -17,11 +17,11 @@ public interface TaskManager {
     List<Epic> getEpics();
 
     //добавление задачи
-    void addTask(Task task);
+    void addTask(Task task) throws ManagerSaveException;
 
-    void addSubTask(SubTask subTask);
+    void addSubTask(SubTask subTask) throws ManagerSaveException;
 
-    void addEpic(Epic epic);
+    void addEpic(Epic epic) throws ManagerSaveException;
 
     //вывод всех задач
     void printAllTasks();
@@ -34,20 +34,20 @@ public interface TaskManager {
     List<SubTask> getSubTaskOfEpic(int epicId);
 
     //обновление задачи
-    void updateTask(Task task);
+    void updateTask(Task task) throws ManagerSaveException;
 
-    void updateSubTask(SubTask subTask);
+    void updateSubTask(SubTask subTask) throws ManagerSaveException;
 
-    void updateEpic(Epic epic);
+    void updateEpic(Epic epic) throws ManagerSaveException;
 
     //удаление задачи
     void deleteAllTasks();
 
-    void deleteTask(int id);
+    void deleteTask(int id) throws ManagerSaveException;
 
-    void deleteSubTask(int id);
+    void deleteSubTask(int id) throws ManagerSaveException;
 
-    void deleteEpic(int id);
+    void deleteEpic(int id) throws ManagerSaveException;
 
     //получение задачи по Id
     Task getTaskById(int id);

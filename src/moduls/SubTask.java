@@ -1,4 +1,4 @@
-package Moduls;
+package moduls;
 
 public class SubTask extends Task { // модульный класс наследует
     private int epicId;
@@ -7,6 +7,7 @@ public class SubTask extends Task { // модульный класс насле�
         super(title, description, status);
         this.epicId = epicId;
     }
+
     // методы работы с Id
     public int getEpicId() {
         return epicId;

@@ -1,9 +1,9 @@
-package Test;
+package test;
 
-import Moduls.Epic;
-import Moduls.SubTask;
-import Moduls.Task;
-import Moduls.TaskStatus;
+import moduls.Epic;
+import moduls.SubTask;
+import moduls.Task;
+import moduls.TaskStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

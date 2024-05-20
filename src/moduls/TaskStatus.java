@@ -1,4 +1,4 @@
-package Moduls;
+package moduls;
 
 public enum TaskStatus {
     NEW,
