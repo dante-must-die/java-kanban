@@ -9,15 +9,19 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 
-public class FileBackedTaskManager extends InMemoryTaskManager {
+public class FileBackedTaskManager extends InMemoryTaskManager { // класс реализует систему хранения информации с помощью файлов
     private final File fileToSave;
 
-    public FileBackedTaskManager(File fileToSave) {
+    private FileBackedTaskManager(File fileToSave) {
         this.fileToSave = fileToSave;
+    } // приватный конструктор
+
+    public static FileBackedTaskManager createClass(File fileToSave) { // метод для создания класса
+        return new FileBackedTaskManager(fileToSave);
     }
 
-    public static FileBackedTaskManager loadFromFile(File file) throws ManagerSaveException {
-        FileBackedTaskManager manager = new FileBackedTaskManager(file);
+    public static FileBackedTaskManager loadFromFile(File file) throws ManagerSaveException { // метод для загрузки с файла
+        FileBackedTaskManager manager = createClass(file);
         try {
             List<String> lines = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
             for (String line : lines.subList(1, lines.size())) {
@@ -36,7 +40,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return manager;
     }
 
-    private static Task taskFromString(String value) {
+    private static Task taskFromString(String value) { // метод для перевода из строки в task
         String[] fields = value.split(",");
         int id = Integer.parseInt(fields[0]);
         TaskType type = TaskType.valueOf(fields[1]);
@@ -56,47 +60,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 throw new IllegalArgumentException("Неизвестный тип задачи");
         }
     }
-
-    @Override
-    public void save() throws ManagerSaveException {
-        try (FileWriter writer = new FileWriter(fileToSave, StandardCharsets.UTF_8)) {
-            writer.write("id,type,name,status,description,epic\n");
-
-            for (Task task : getTasks()) {
-                writer.write(taskToString(task) + "\n");
-            }
-
-            for (Epic epic : getEpics()) {
-                writer.write(taskToString(epic) + "\n");
-            }
-
-            for (SubTask subTask : getSubTasks()) {
-                writer.write(taskToString(subTask) + "\n");
-            }
-        } catch (IOException e) {
-            throw new ManagerSaveException();
-        }
-    }
-
-    private String taskToString(Task task) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(task.getId()).append(",");
-        if (task instanceof SubTask) {
-            sb.append(TaskType.SUBTASK).append(",");
-        } else if (task instanceof Epic) {
-            sb.append(TaskType.EPIC).append(",");
-        } else {
-            sb.append(TaskType.TASK).append(",");
-        }
-        sb.append(task.getTitle()).append(",");
-        sb.append(task.getStatus()).append(",");
-        sb.append(task.getDescription()).append(",");
-        if (task instanceof SubTask) {
-            sb.append(((SubTask) task).getEpicId());
-        }
-        return sb.toString();
-    }
-
+    // переопределенние функций с методом save()
     @Override
     public void addTask(Task task) throws ManagerSaveException {
         super.addTask(task);
@@ -150,5 +114,43 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         super.deleteEpic(id);
         save();
     }
+    //метод для сохранения информации в файл
+    private void save() throws ManagerSaveException {
+        try (FileWriter writer = new FileWriter(fileToSave, StandardCharsets.UTF_8)) {
+            writer.write("id,type,name,status,description,epic\n");
 
+            for (Task task : getTasks()) {
+                writer.write(taskToString(task) + "\n");
+            }
+
+            for (Epic epic : getEpics()) {
+                writer.write(taskToString(epic) + "\n");
+            }
+
+            for (SubTask subTask : getSubTasks()) {
+                writer.write(taskToString(subTask) + "\n");
+            }
+        } catch (IOException e) {
+            throw new ManagerSaveException();
+        }
+    }
+    // метод для перевода task в форматированную строку
+    private String taskToString(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(task.getId()).append(",");
+        if (task instanceof SubTask) {
+            sb.append(TaskType.SUBTASK).append(",");
+        } else if (task instanceof Epic) {
+            sb.append(TaskType.EPIC).append(",");
+        } else {
+            sb.append(TaskType.TASK).append(",");
+        }
+        sb.append(task.getTitle()).append(",");
+        sb.append(task.getStatus()).append(",");
+        sb.append(task.getDescription()).append(",");
+        if (task instanceof SubTask) {
+            sb.append(((SubTask) task).getEpicId());
+        }
+        return sb.toString();
+    }
 }

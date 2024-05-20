@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface TaskManager {
 
-    void save() throws ManagerSaveException;
 
     List<SubTask> getSubTasks();
 

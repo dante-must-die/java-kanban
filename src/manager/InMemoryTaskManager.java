@@ -18,9 +18,6 @@ public class InMemoryTaskManager implements TaskManager {
     private int currentId = 0;
     private HistoryManager historyManager = Managers.getDefaultHistory();
 
-    @Override
-    public void save() throws ManagerSaveException{
-    }
 
     //реализация функций интерфейса TaskManager
     @Override
