@@ -116,6 +116,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager { // класс �
         save();
     }
 
+    public void savePublic() throws ManagerSaveException {
+        save();
+    }
+
     //метод для сохранения информации в файл
     private void save() throws ManagerSaveException {
         try (FileWriter writer = new FileWriter(fileToSave, StandardCharsets.UTF_8)) {

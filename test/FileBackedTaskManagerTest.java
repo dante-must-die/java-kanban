@@ -3,17 +3,18 @@ package test;
 import manager.FileBackedTaskManager;
 import manager.ManagerSaveException;
 import manager.TaskManager;
-import manager.Managers;
-import moduls.*;
-
+import moduls.Epic;
+import moduls.SubTask;
+import moduls.Task;
+import moduls.TaskStatus;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
+import static manager.FileBackedTaskManager.createClass;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FileBackedTaskManagerTest {
@@ -23,7 +24,7 @@ public class FileBackedTaskManagerTest {
     @BeforeEach
     void setUp() throws IOException {
         tempFile = File.createTempFile("tasks", ".csv");
-        manager = new FileBackedTaskManager(tempFile);
+        manager = createClass(tempFile);
     }
 
     @AfterEach
@@ -33,8 +34,12 @@ public class FileBackedTaskManagerTest {
 
     @Test
     void shouldSaveAndLoadEmptyFile() throws IOException, ManagerSaveException {
-        manager.save();
-        TaskManager loadedManager = FileBackedTaskManager.loadFromFile(tempFile);
+        File tempFile = File.createTempFile("test", ".txt");
+        FileBackedTaskManager manager = FileBackedTaskManager.createClass(tempFile);
+        manager.savePublic();
+
+        FileBackedTaskManager loadedManager = FileBackedTaskManager.loadFromFile(tempFile);
+
         assertTrue(loadedManager.getTasks().isEmpty());
         assertTrue(loadedManager.getEpics().isEmpty());
         assertTrue(loadedManager.getSubTasks().isEmpty());
@@ -51,8 +56,6 @@ public class FileBackedTaskManagerTest {
         manager.addTask(task2);
         manager.addEpic(epic);
         manager.addSubTask(subTask);
-
-        manager.save();
 
         TaskManager loadedManager = FileBackedTaskManager.loadFromFile(tempFile);
 
@@ -75,8 +78,6 @@ public class FileBackedTaskManagerTest {
         manager.addTask(task);
         manager.addEpic(epic);
         manager.addSubTask(subTask);
-
-        manager.save();
 
         TaskManager loadedManager = FileBackedTaskManager.loadFromFile(tempFile);
 
