@@ -60,6 +60,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager { // класс �
                 throw new IllegalArgumentException("Неизвестный тип задачи");
         }
     }
+
     // переопределенние функций с методом save()
     @Override
     public void addTask(Task task) throws ManagerSaveException {
@@ -114,6 +115,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager { // класс �
         super.deleteEpic(id);
         save();
     }
+
     //метод для сохранения информации в файл
     private void save() throws ManagerSaveException {
         try (FileWriter writer = new FileWriter(fileToSave, StandardCharsets.UTF_8)) {
@@ -134,6 +136,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager { // класс �
             throw new ManagerSaveException();
         }
     }
+
     // метод для перевода task в форматированную строку
     private String taskToString(Task task) {
         StringBuilder sb = new StringBuilder();
