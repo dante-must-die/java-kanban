@@ -10,15 +10,12 @@ import manager.ManagerSaveException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ManagersTest {
-    //утилитарный класс всегда возвращает проинициализированные и готовые к работе экземпляры менеджеров;
     @Test
-    public void getDefaultTaskManager_ShouldReturnInitializedInstance() throws ManagerSaveException {
+    void getDefaultTaskManager_ShouldReturnInitializedInstance() throws ManagerSaveException {
         TaskManager taskManager = Managers.getDefault();
 
         Task task = new Task("Test Task", "Description", TaskStatus.NEW);
         taskManager.addTask(task);
         assertFalse(taskManager.getTasks().isEmpty(), "TaskManager should be able to add tasks");
     }
-
-
 }

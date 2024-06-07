@@ -56,5 +56,5 @@ public interface TaskManager {
 
     Task getEpicById(int id);
 
-
+    public void savePublic() throws ManagerSaveException;
 }

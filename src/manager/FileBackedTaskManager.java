@@ -7,20 +7,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
-public class FileBackedTaskManager extends InMemoryTaskManager { // класс реализует систему хранения информации с помощью файлов
+public class FileBackedTaskManager extends InMemoryTaskManager {
     private final File fileToSave;
 
     private FileBackedTaskManager(File fileToSave) {
         this.fileToSave = fileToSave;
-    } // приватный конструктор
+    }
 
-    public static FileBackedTaskManager createClass(File fileToSave) { // метод для создания класса
+    public static FileBackedTaskManager createClass(File fileToSave) {
         return new FileBackedTaskManager(fileToSave);
     }
 
-    public static FileBackedTaskManager loadFromFile(File file) throws ManagerSaveException { // метод для загрузки с файла
+    public static FileBackedTaskManager loadFromFile(File file) throws ManagerSaveException {
         FileBackedTaskManager manager = createClass(file);
         try {
             List<String> lines = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
@@ -40,28 +42,29 @@ public class FileBackedTaskManager extends InMemoryTaskManager { // класс �
         return manager;
     }
 
-    private static Task taskFromString(String value) { // метод для перевода из строки в task
+    private static Task taskFromString(String value) {
         String[] fields = value.split(",");
         int id = Integer.parseInt(fields[0]);
         TaskType type = TaskType.valueOf(fields[1]);
         String title = fields[2];
         TaskStatus status = TaskStatus.valueOf(fields[3]);
         String description = fields[4];
+        Duration duration = fields[5].equals("null") ? null : Duration.ofMinutes(Long.parseLong(fields[5]));
+        LocalDateTime startTime = fields[6].equals("null") ? null : LocalDateTime.parse(fields[6]);
 
         switch (type) {
             case TASK:
-                return new Task(title, description, status);
+                return new Task(title, description, status, duration, startTime);
             case EPIC:
                 return new Epic(title, description);
             case SUBTASK:
-                int epicId = Integer.parseInt(fields[5]);
-                return new SubTask(title, description, status, epicId);
+                int epicId = Integer.parseInt(fields[7]);
+                return new SubTask(title, description, status, duration, startTime, epicId);
             default:
                 throw new IllegalArgumentException("Неизвестный тип задачи");
         }
     }
 
-    // переопределенние функций с методом save()
     @Override
     public void addTask(Task task) throws ManagerSaveException {
         super.addTask(task);
@@ -120,10 +123,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager { // класс �
         save();
     }
 
-    //метод для сохранения информации в файл
     private void save() throws ManagerSaveException {
         try (FileWriter writer = new FileWriter(fileToSave, StandardCharsets.UTF_8)) {
-            writer.write("id,type,name,status,description,epic\n");
+            writer.write("id,type,name,status,description,duration,startTime,epic\n");
 
             for (Task task : getTasks()) {
                 writer.write(taskToString(task) + "\n");
@@ -141,7 +143,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager { // класс �
         }
     }
 
-    // метод для перевода task в форматированную строку
     private String taskToString(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append(task.getId()).append(",");
@@ -155,6 +156,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager { // класс �
         sb.append(task.getTitle()).append(",");
         sb.append(task.getStatus()).append(",");
         sb.append(task.getDescription()).append(",");
+        sb.append(task.getDuration() == null ? "null" : task.getDuration().toMinutes()).append(",");
+        sb.append(task.getStartTime() == null ? "null" : task.getStartTime().toString()).append(",");
         if (task instanceof SubTask) {
             sb.append(((SubTask) task).getEpicId());
         }

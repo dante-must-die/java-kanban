@@ -13,18 +13,19 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
-import static manager.FileBackedTaskManager.createClass;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class FileBackedTaskManagerTest {
+class FileBackedTaskManagerTest {
     private File tempFile;
     private TaskManager manager;
 
     @BeforeEach
     void setUp() throws IOException {
         tempFile = File.createTempFile("tasks", ".csv");
-        manager = createClass(tempFile);
+        manager = FileBackedTaskManager.createClass(tempFile);
     }
 
     @AfterEach
@@ -34,11 +35,9 @@ public class FileBackedTaskManagerTest {
 
     @Test
     void shouldSaveAndLoadEmptyFile() throws IOException, ManagerSaveException {
-        File tempFile = File.createTempFile("test", ".txt");
-        FileBackedTaskManager manager = FileBackedTaskManager.createClass(tempFile);
         manager.savePublic();
 
-        FileBackedTaskManager loadedManager = FileBackedTaskManager.loadFromFile(tempFile);
+        TaskManager loadedManager = FileBackedTaskManager.loadFromFile(tempFile);
 
         assertTrue(loadedManager.getTasks().isEmpty());
         assertTrue(loadedManager.getEpics().isEmpty());
@@ -46,11 +45,11 @@ public class FileBackedTaskManagerTest {
     }
 
     @Test
-    void shouldSaveAndLoadMultipleTasks() throws IOException, ManagerSaveException {
-        Task task1 = new Task("Task 1", "Description 1", TaskStatus.NEW);
-        Task task2 = new Task("Task 2", "Description 2", TaskStatus.IN_PROGRESS);
+    void shouldSaveAndLoadMultipleTasks() throws ManagerSaveException {
+        Task task1 = new Task("Task 1", "Description 1", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now());
+        Task task2 = new Task("Task 2", "Description 2", TaskStatus.IN_PROGRESS, Duration.ofMinutes(30), LocalDateTime.now().plusMinutes(30));
         Epic epic = new Epic("Epic 1", "Epic Description");
-        SubTask subTask = new SubTask("SubTask 1", "SubTask Description", TaskStatus.DONE, epic.getId());
+        SubTask subTask = new SubTask("SubTask 1", "SubTask Description", TaskStatus.DONE, Duration.ofMinutes(30), LocalDateTime.now().plusMinutes(60), epic.getId());
 
         manager.addTask(task1);
         manager.addTask(task2);
@@ -70,10 +69,10 @@ public class FileBackedTaskManagerTest {
     }
 
     @Test
-    void shouldRestoreManagerStateFromFile() throws IOException, ManagerSaveException {
-        Task task = new Task("Task 1", "Description", TaskStatus.NEW);
+    void shouldRestoreManagerStateFromFile() throws ManagerSaveException {
+        Task task = new Task("Task 1", "Description", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now());
         Epic epic = new Epic("Epic 1", "Epic Description");
-        SubTask subTask = new SubTask("SubTask 1", "SubTask Description", TaskStatus.NEW, epic.getId());
+        SubTask subTask = new SubTask("SubTask 1", "SubTask Description", TaskStatus.NEW, Duration.ofMinutes(30), LocalDateTime.now().plusMinutes(30), epic.getId());
 
         manager.addTask(task);
         manager.addEpic(epic);

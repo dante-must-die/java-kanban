@@ -7,11 +7,7 @@ import moduls.TaskStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-
 class TaskTest {
-    //экземпляры класса Task равны друг другу, если равен их id;
     @Test
     void tasksWithSameIdShouldBeEqual() {
         Task task1 = new Task("Task 1", "Description for Task 1", TaskStatus.NEW);
@@ -21,7 +17,6 @@ class TaskTest {
         Assertions.assertEquals(task1, task2, "Tasks with the same ID should be equal.");
     }
 
-    //наследники класса Task равны друг другу, если равен их id;
     @Test
     void taskDescendantsWithSameIdShouldBeConsideredEqual() {
         Epic epic = new Epic("Epic", "Description");
@@ -30,6 +25,6 @@ class TaskTest {
         epic.setId(1);
         subTask.setId(1);
 
-        assertTrue(epic.getId() == subTask.getId(), "Epic and SubTask with the same ID should be considered equal.");
+        Assertions.assertTrue(epic.getId() == subTask.getId(), "Epic and SubTask with the same ID should be considered equal.");
     }
 }

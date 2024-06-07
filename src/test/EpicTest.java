@@ -1,12 +1,11 @@
 package test;
 
-import manager.ManagerSaveException;
-import manager.Managers;
 import manager.TaskManager;
+import manager.Managers;
+import manager.ManagerSaveException;
 import moduls.Epic;
 import moduls.SubTask;
 import moduls.TaskStatus;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +19,6 @@ class EpicTest {
         taskManager = Managers.getDefault();
     }
 
-    //объект Epic нельзя добавить в самого себя в виде подзадачи;
     @Test
     void epicCannotBeSubtaskOfItself() throws ManagerSaveException {
         Epic epic = new Epic("Epic Title", "Epic Description");
@@ -29,13 +27,12 @@ class EpicTest {
 
         SubTask subTask = new SubTask("Epic SubTask", "Trying to add Epic as its own subtask.", TaskStatus.NEW, epicId);
         taskManager.addSubTask(subTask);
+
         assertFalse(taskManager.getSubTasks().isEmpty() || !taskManager.getSubTasks().contains(subTask), "The system should not contain the invalid subtask.");
     }
 
-    //объект Subtask нельзя сделать своим же эпиком
     @Test
     void subTaskCannotBeItsOwnEpic() throws ManagerSaveException {
-
         Epic epic = new Epic("Epic for SubTask", "Description");
         taskManager.addEpic(epic);
         int epicId = epic.getId();
