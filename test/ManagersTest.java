@@ -1,0 +1,21 @@
+package test;
+
+import manager.Managers;
+import manager.TaskManager;
+import moduls.Task;
+import moduls.TaskStatus;
+import org.junit.jupiter.api.Test;
+import manager.ManagerSaveException;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ManagersTest {
+    @Test
+    void getDefaultTaskManager_ShouldReturnInitializedInstance() throws ManagerSaveException {
+        TaskManager taskManager = Managers.getDefault();
+
+        Task task = new Task("Test Task", "Description", TaskStatus.NEW);
+        taskManager.addTask(task);
+        assertFalse(taskManager.getTasks().isEmpty(), "TaskManager should be able to add tasks");
+    }
+}
