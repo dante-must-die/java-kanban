@@ -16,6 +16,8 @@ public class InMemoryTaskManager implements TaskManager {
     private int currentId = 0;
     private HistoryManager historyManager = Managers.getDefaultHistory();
 
+
+    // переопределние методов интерфейса
     @Override
     public List<SubTask> getSubTasks() {
         return new ArrayList<>(subTasks.values());
@@ -170,12 +172,10 @@ public class InMemoryTaskManager implements TaskManager {
         return epic;
     }
 
-    @Override
-    public void savePublic() throws ManagerSaveException {
 
-    }
 
-    public List<Task> getPrioritizedTasks() {
+    // метод для приоритезации задач
+    private List<Task> getPrioritizedTasks() {
         return tasks.values().stream()
                 .sorted((t1, t2) -> {
                     LocalDateTime t1Start = t1.getStartTime();
@@ -194,6 +194,7 @@ public class InMemoryTaskManager implements TaskManager {
                 .collect(Collectors.toList());
     }
 
+    // метод для обновления статуса epic
     private void updateEpicStatus(int epicId) {
         Epic epic = epics.get(epicId);
         if (epic == null) return;

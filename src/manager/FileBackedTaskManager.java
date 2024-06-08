@@ -22,6 +22,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return new FileBackedTaskManager(fileToSave);
     }
 
+    // метод для загрузки из файла
     public static FileBackedTaskManager loadFromFile(File file) throws ManagerSaveException {
         FileBackedTaskManager manager = createClass(file);
         try {
@@ -42,6 +43,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return manager;
     }
 
+    // метод для преобразования string в task
     private static Task taskFromString(String value) {
         String[] fields = value.split(",");
         int id = Integer.parseInt(fields[0]);
@@ -65,6 +67,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
+    // переопределение методов интерфейса
     @Override
     public void addTask(Task task) throws ManagerSaveException {
         super.addTask(task);
@@ -123,6 +126,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
+    // метод для сохранения данных
     private void save() throws ManagerSaveException {
         try (FileWriter writer = new FileWriter(fileToSave, StandardCharsets.UTF_8)) {
             writer.write("id,type,name,status,description,duration,startTime,epic\n");
@@ -143,6 +147,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
     }
 
+    // метод для перевода task в string
     private String taskToString(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append(task.getId()).append(",");

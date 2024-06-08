@@ -22,6 +22,7 @@ public class Epic extends Task {
         return subTaskIds;
     }
 
+    // метод для подсчета времени
     public Duration calculateDuration(Map<Integer, SubTask> subTasks) {
         return subTaskIds.stream()
                 .map(subTasks::get)
@@ -30,6 +31,7 @@ public class Epic extends Task {
                 .reduce(Duration.ZERO, Duration::plus);
     }
 
+    // метод для подсчета точки старта
     public LocalDateTime calculateStartTime(Map<Integer, SubTask> subTasks) {
         return subTaskIds.stream()
                 .map(subTasks::get)
@@ -39,6 +41,7 @@ public class Epic extends Task {
                 .orElse(null);
     }
 
+    // метод для подсчета конечной точки
     public LocalDateTime calculateEndTime(Map<Integer, SubTask> subTasks) {
         return subTaskIds.stream()
                 .map(subTasks::get)

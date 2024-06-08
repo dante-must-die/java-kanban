@@ -35,7 +35,7 @@ class FileBackedTaskManagerTest {
 
     @Test
     void shouldSaveAndLoadEmptyFile() throws IOException, ManagerSaveException {
-        manager.savePublic();
+        ((FileBackedTaskManager) manager).savePublic();
 
         TaskManager loadedManager = FileBackedTaskManager.loadFromFile(tempFile);
 
