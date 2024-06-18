@@ -11,7 +11,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-public class EpicHandler extends BaseHttpHandler { // класс для эндпоинтов Epic
+public class EpicHandler extends BaseHttpHandler {
+    // класс для эндпоинтов Epic
     private static final Gson gson = HttpTaskServer.getGson();
     private final TaskManager taskManager;
 

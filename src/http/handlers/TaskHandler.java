@@ -11,7 +11,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-public class TaskHandler extends BaseHttpHandler { // класс для эндпоинтов Task
+public class TaskHandler extends BaseHttpHandler {
+    // класс для эндпоинтов Task
     private static final Gson gson = HttpTaskServer.getGson();
     private final TaskManager taskManager;
 

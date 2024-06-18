@@ -8,7 +8,8 @@ import moduls.SubTask;
 
 import java.io.IOException;
 
-public class SubtaskByIdHandler extends BaseHttpHandler { // класс для эндпоинтов SubtaskById
+public class SubtaskByIdHandler extends BaseHttpHandler {
+    // класс для эндпоинтов SubtaskById
     private static final Gson gson = HttpTaskServer.getGson();
     private final TaskManager taskManager;
 

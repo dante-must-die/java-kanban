@@ -9,7 +9,8 @@ import moduls.Task;
 import java.io.IOException;
 import java.util.List;
 
-public class PrioritizedHandler extends BaseHttpHandler { // класс для эндпоинтов Prioritized
+public class PrioritizedHandler extends BaseHttpHandler {
+    // класс для эндпоинтов Prioritized
     private static final Gson gson = HttpTaskServer.getGson();
     private final TaskManager taskManager;
 

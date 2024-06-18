@@ -9,7 +9,8 @@ import moduls.Task;
 import java.io.IOException;
 import java.util.List;
 
-public class HistoryHandler extends BaseHttpHandler { // класс для эндпоинтов History
+public class HistoryHandler extends BaseHttpHandler {
+    // класс для эндпоинтов History
     private static final Gson gson = HttpTaskServer.getGson();
     private final TaskManager taskManager;
 

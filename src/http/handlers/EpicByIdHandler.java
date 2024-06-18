@@ -8,7 +8,8 @@ import moduls.Epic;
 
 import java.io.IOException;
 
-public class EpicByIdHandler extends BaseHttpHandler { // класс для EpicById
+public class EpicByIdHandler extends BaseHttpHandler {
+    // класс для EpicById
     private static final Gson gson = HttpTaskServer.getGson();
     private final TaskManager taskManager;
 
