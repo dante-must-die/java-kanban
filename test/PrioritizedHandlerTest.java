@@ -66,7 +66,7 @@ public class PrioritizedHandlerTest {
     }
 
     @Test
-    public void testGetEmptyPrioritizedTasks() throws IOException, InterruptedException, ManagerSaveException {
+    public void testGetEmptyPrioritizedTasks() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         URI url = URI.create("http://localhost:8080/prioritized");
         HttpRequest request = HttpRequest.newBuilder()
