@@ -172,10 +172,15 @@ public class InMemoryTaskManager implements TaskManager {
         return epic;
     }
 
+    @Override
+    public List<Task> getHistory() {
+        return historyManager.getHistory();
+    }
 
 
     // метод для приоритезации задач
-    private List<Task> getPrioritizedTasks() {
+    @Override
+    public List<Task> getPrioritizedTasks() {
         return tasks.values().stream()
                 .sorted((t1, t2) -> {
                     LocalDateTime t1Start = t1.getStartTime();
