@@ -27,14 +27,17 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         FileBackedTaskManager manager = createClass(file);
         try {
             List<String> lines = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
-            for (String line : lines.subList(1, lines.size())) {
-                Task task = taskFromString(line);
-                if (task instanceof Epic) {
-                    manager.addEpic((Epic) task);
-                } else if (task instanceof SubTask) {
-                    manager.addSubTask((SubTask) task);
-                } else {
-                    manager.addTask(task);
+            // Проверяем, что файл содержит хотя бы одну строку для заголовка и одну строку данных
+            if (lines.size() > 1) {
+                for (String line : lines.subList(1, lines.size())) {
+                    Task task = taskFromString(line);
+                    if (task instanceof Epic) {
+                        manager.addEpic((Epic) task);
+                    } else if (task instanceof SubTask) {
+                        manager.addSubTask((SubTask) task);
+                    } else {
+                        manager.addTask(task);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -42,6 +45,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         }
         return manager;
     }
+
 
     // метод для преобразования string в task
     private static Task taskFromString(String value) {
@@ -122,9 +126,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
-    public void savePublic() throws ManagerSaveException {
-        save();
-    }
 
     // метод для сохранения данных
     private void save() throws ManagerSaveException {

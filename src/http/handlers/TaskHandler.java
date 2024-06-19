@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TaskHandler extends BaseHttpHandler {
     // класс для эндпоинтов Task
-    private static final Gson gson = HttpTaskServer.getGson();
+    private static final Gson GSON = HttpTaskServer.getGson();
     private final TaskManager taskManager;
 
     public TaskHandler(TaskManager taskManager) {
@@ -37,13 +37,13 @@ public class TaskHandler extends BaseHttpHandler {
 
     private void handleGetTasks(HttpExchange exchange) throws IOException {
         List<Task> tasks = taskManager.getTasks();
-        String response = gson.toJson(tasks);
+        String response = GSON.toJson(tasks);
         sendText(exchange, response, 200);
     }
 
     private void handlePostTask(HttpExchange exchange) throws IOException {
         try (InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8)) {
-            Task task = gson.fromJson(isr, Task.class);
+            Task task = GSON.fromJson(isr, Task.class);
             taskManager.addTask(task);
             sendText(exchange, "Task added successfully", 201);
         } catch (Exception e) {

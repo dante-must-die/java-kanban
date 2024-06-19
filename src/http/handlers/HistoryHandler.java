@@ -11,7 +11,7 @@ import java.util.List;
 
 public class HistoryHandler extends BaseHttpHandler {
     // класс для эндпоинтов History
-    private static final Gson gson = HttpTaskServer.getGson();
+    private static final Gson GSON = HttpTaskServer.getGson();
     private final TaskManager taskManager;
 
     public HistoryHandler(TaskManager taskManager) {
@@ -29,7 +29,7 @@ public class HistoryHandler extends BaseHttpHandler {
 
     private void handleGetHistory(HttpExchange exchange) throws IOException {
         List<Task> history = taskManager.getHistory();
-        String response = gson.toJson(history);
+        String response = GSON.toJson(history);
         sendText(exchange, response, 200);
     }
 }

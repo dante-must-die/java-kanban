@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 public class HttpTaskServer { // основной класс для API
     private static final int PORT = 8080;
-    private static final Gson gson = new GsonBuilder() // создание Gson и использование адаптеров
+    private static final Gson GSON = new GsonBuilder() // создание Gson и использование адаптеров
             .registerTypeAdapter(Duration.class, new DurationTypeAdapter())
             .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeTypeAdapter())
             .create();
@@ -38,7 +38,7 @@ public class HttpTaskServer { // основной класс для API
     }
 
     public static Gson getGson() {
-        return gson;
+        return GSON;
     }
 
     public static void main(String[] args) throws IOException {

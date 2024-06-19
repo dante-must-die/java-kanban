@@ -9,7 +9,7 @@ import moduls.Task;
 import java.io.IOException;
 
 public class TaskByIdHandler extends BaseHttpHandler {
-    private static final Gson gson = HttpTaskServer.getGson();
+    private static final Gson GSON = HttpTaskServer.getGson();
     private final TaskManager taskManager;
 
     public TaskByIdHandler(TaskManager taskManager) {
@@ -51,7 +51,7 @@ public class TaskByIdHandler extends BaseHttpHandler {
             sendNotFound(exchange);
             return;
         }
-        String response = gson.toJson(task);
+        String response = GSON.toJson(task);
         sendText(exchange, response, 200);
     }
 
